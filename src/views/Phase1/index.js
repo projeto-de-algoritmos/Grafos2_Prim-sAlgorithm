@@ -5,41 +5,40 @@ const Phase1 = () => {
   const createMatrix = () => {
     let width = Math.floor(window.innerWidth / 100);
     let height = Math.floor(window.innerHeight / 100);
-    console.log(width, height);
-    width = (width - 2) - (width % 4) + 3
-    height = (height - 2) - (height % 2) + 3
-    console.log(width, height);
- 
-    let matrix = [];
-    let acc = 0;
-    let spaces = Math.floor(width/4);
+    console.log(width)
+    height = height - (height % 3) + 1;
+    width = width - (width % 3);
 
-    for (let i = 0; i < width; i++) {
+    let matrix = [];
+    let house = 1;
+
+    for (let i = 0; i < height; i++) {
       let aux = [];
-      for (let j = 0; j < height; j++) {
-        if (i == 0 || j == 0 || i == width - 1 || j == height - 1) {
-          aux.push({ home: true });
+      for (let j = 0; j < width; j++) {
+        if (i == 0 || j == 0 || i >= height || j >= width - 1 || i % 2 === 0) {
+          if (j === house && i > 0 && i < width - 1) {
+            aux.push({ home: false, x: i, y: j, fire: false });
+            house += 3;
+          } else {
+            aux.push({ home: true, x: i, y: j, fire: false });
+          }
         } else {
-          aux.push({ home: false });
+          aux.push({ home: false, x: i, y: j, fire: false });
         }
       }
+      house = 1;
       matrix.push(aux);
     }
 
+
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
         {
           matrix.map((item, i) =>
-            <div key={i}>
+            <div style={{ display: "flex", flexDirection: 'row' }} key={i}>
               {
-                item.map((props, j) => {
-                  if (props.home) {
-                    return <Cell key={`${i}${j}`} color="white" />
-                  } else if (props.corner) {
-                    return <Cell key={`${i}${j}`} color="orange" />
-                  } else {
-                    return <Cell key={`${i}${j}`} color="black" />
-                  }
+                item.map((cell, j) => {
+                  return <Cell key={`${i}${j}`} color="white" cell={cell} />
                 })
               }
             </div>
