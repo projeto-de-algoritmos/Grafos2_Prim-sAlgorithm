@@ -4,36 +4,41 @@ import Cell from '../../components/cell';
 const Phase1 = () => {
   const createMatrix = () => {
     let width = Math.floor(window.innerWidth / 100);
-    let height = Math.floor(window.innerHeight / 105);
+    let height = Math.floor(window.innerHeight / 100);
+    console.log(width, height);
+    width = (width - 2) - (width % 4) + 3
+    height = (height - 2) - (height % 2) + 3
+    console.log(width, height);
+ 
     let matrix = [];
-    let withNoHouse = [{ x: 0, y: 0 }, { x: 1, y: 1 }, 
-      { x: 2, y: 2 }, { x: 3, y: 3 }, { x: 4, y: 4 }, { x: 5, y: 5 }, { x: 1, y: 0 }, { x: 2, y: 0 },
-     { x: 3, y: 0 }, { x: 4, y: 0 }, { x: 5, y: 0 }, { x: 6, y: 0 }];
-    for(let i=0; i < width; i++){
+    let acc = 0;
+    let spaces = Math.floor(width/4);
+
+    for (let i = 0; i < width; i++) {
       let aux = [];
-      for(let j=0; j < height;j++){
-        if (withNoHouse.find(item => item.x === i && item.y === j)){
-          aux.push({home: true});
+      for (let j = 0; j < height; j++) {
+        if (i == 0 || j == 0 || i == width - 1 || j == height - 1) {
+          aux.push({ home: true });
         } else {
-          aux.push({home: false});
+          aux.push({ home: false });
         }
       }
       matrix.push(aux);
     }
 
     return (
-      <div style={{ width: '100%', display: 'flex', height: '95%' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         {
-          matrix.map((item, i) => 
+          matrix.map((item, i) =>
             <div key={i}>
               {
-                item.map((props,j) => {
-                  if(props.home){
-                    return <Cell color="white"/>
-                  } else if(props.corner) {
-                    return <Cell color = "orange"/>
+                item.map((props, j) => {
+                  if (props.home) {
+                    return <Cell key={`${i}${j}`} color="white" />
+                  } else if (props.corner) {
+                    return <Cell key={`${i}${j}`} color="orange" />
                   } else {
-                    return <Cell color="black"/>
+                    return <Cell key={`${i}${j}`} color="black" />
                   }
                 })
               }
@@ -45,8 +50,8 @@ const Phase1 = () => {
   }
   return (
     <div>
-      <h1 style={{ textAlign: 'center'}}>Fase 1</h1>
-      <div style={{ height: '10%', width: '10%', display:'block' }}>
+      {/* <h1 style={{ textAlign: 'center'}}>Fase 1</h1> */}
+      <div>
         {createMatrix()}
       </div>
     </div>
