@@ -41,6 +41,8 @@ function draw() {
       }
     }
 
+    stroke(255);
+    strokeWeight(2);
     line(reached[rIndex].x, reached[rIndex].y, unreached[uIndex].x, unreached[uIndex].y);
     reached.push(unreached[uIndex]);
     unreached.splice(uIndex, 1);
