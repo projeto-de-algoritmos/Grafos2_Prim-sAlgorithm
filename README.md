@@ -13,7 +13,8 @@
 O projeto desenvolvido permite de forma dinâmica ver o comportamento do algoritimo de prim.
 
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
+![Imagem tutorial 1](/tutorial/image1.png)
+![Imagem tutorial 2](/tutorial/image2.png)
 
 ## Instalação 
 **Linguagem**: JavaScript<br>
